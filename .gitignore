@@ -3,5 +3,5 @@
 /build/
 /build/classes/java/main/
 /data
-/.idea
+/.idea/
 /gradle/
