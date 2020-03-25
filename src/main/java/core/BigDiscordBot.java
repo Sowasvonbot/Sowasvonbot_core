@@ -2,13 +2,14 @@ package core;
 
 import botcore.Bot;
 import core.guild.modules.ModuleAPI;
+import jar_handling.JarLoader;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadFactory;
 
 public class BigDiscordBot {
 
@@ -61,6 +62,15 @@ public class BigDiscordBot {
                         System.out.println("Reloading guild");
                         mainBotExecutor.submit(()->GuildHandler.reloadGuildHandler());
                         break;
+                    case "reloadJars":
+                        JarLoader.getInstance().reload();
+                        break;
+                    case "loadPlugins":
+                        try {
+                            JarLoader.getInstance().loadAllClasses();
+                        } catch (IOException e){
+                            e.printStackTrace();
+                        }
                     default:
                         System.out.println("Don't know: " + line);
                 }

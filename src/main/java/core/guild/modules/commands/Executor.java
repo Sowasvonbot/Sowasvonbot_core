@@ -24,7 +24,7 @@ public class Executor {
 
     public Executor(CommandController controller, String name) {
         executorService = Executors.newSingleThreadExecutor();
-        executorService.submit(()->Thread.currentThread().setName("name"));
+        executorService.submit(()->Thread.currentThread().setName(name));
         this.commandController = controller;
         commandHolder = new CommandHolder();
         moduleName = name;
@@ -38,19 +38,23 @@ public class Executor {
                 return;
             }
             logger.info("Executing command {} with parameters", parameter);
-            CommandReturn commandReturn = commandController.executeCommand(parameter, args);
-            Object o = commandReturn.getContent();
-            MessageHolder messageHolder = null;
-            messageHolder = commandReturn.getMessageHolder();
-            if (o instanceof Message) {
-                Output.sendMessageToChannel(channelID, (Message) o, messageHolder);
-            } else if (o instanceof MessageEmbed) {
-                Output.sendMessageToChannel(channelID, (MessageEmbed) o, messageHolder );
-            } else if (o instanceof EmbedWithPicture){
-                Output.sendMessageToChannel(channelID, (EmbedWithPicture) o, messageHolder);
-            } else{
-                Output.sendMessageToChannel(channelID,o.toString());
-        }
+            try{
+                CommandReturn commandReturn = commandController.executeCommand(parameter, args);
+                Object o = commandReturn.getContent();
+                MessageHolder messageHolder = null;
+                messageHolder = commandReturn.getMessageHolder();
+                if (o instanceof Message) {
+                    Output.sendMessageToChannel(channelID, (Message) o, messageHolder);
+                } else if (o instanceof MessageEmbed) {
+                    Output.sendMessageToChannel(channelID, (MessageEmbed) o, messageHolder);
+                } else if (o instanceof EmbedWithPicture) {
+                    Output.sendMessageToChannel(channelID, (EmbedWithPicture) o, messageHolder);
+                } else {
+                    Output.sendMessageToChannel(channelID, o.toString());
+                }
+            } catch (Exception e){
+                e.printStackTrace();
+            }
         });
     }
 

@@ -2,8 +2,6 @@ package core.guild.modules;
 
 import botcore.EmbedWithPicture;
 import botcore.MessageHolder;
-import core.guild.modules.commands.Command;
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageEmbed;

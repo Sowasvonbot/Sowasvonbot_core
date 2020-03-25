@@ -2,7 +2,6 @@ package botcore;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.MessageBuilder;
-import net.dv8tion.jda.api.entities.Invite;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.TextChannel;
@@ -10,7 +9,6 @@ import net.dv8tion.jda.api.requests.restaction.MessageAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -165,12 +163,13 @@ public abstract class Output {
 
             else if (currAction == null && thumbnail != null) currAction = channel.sendFile(thumbnail, "thumbnail.jpg");
 
-            else if (currAction != null && thumbnail == null) {return channel.sendMessage(embedBuilder.build()); }
+            else if (currAction == null && thumbnail == null) {return channel.sendMessage(embedBuilder.build()); }
 
             return currAction.embed(embedBuilder.build());
 
 
         } catch (NullPointerException nullPointer){
+            nullPointer.printStackTrace();
             logger.info(nullPointer.getMessage());
             return null;
         } catch (Exception e){
