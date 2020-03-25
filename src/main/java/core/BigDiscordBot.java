@@ -67,7 +67,7 @@ public class BigDiscordBot {
                         mainBotExecutor.submit(()->GuildHandler.reloadGuildHandler());
                         break;
                     case "reloadJars":
-                        JarLoader.getInstance().reload();
+                        mainBotExecutor.submit(()-> JarLoader.getInstance().reload());
                         break;
                     case "loadPlugins":
                         try {
