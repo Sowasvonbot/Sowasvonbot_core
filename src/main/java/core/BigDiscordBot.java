@@ -44,6 +44,10 @@ public class BigDiscordBot {
 
     }
 
+    public void clearModules(){
+        registeredModules.clear();
+    }
+
     private static void setupScanner(GuildHandler guildHandler){
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.submit(() ->{

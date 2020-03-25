@@ -1,6 +1,7 @@
 package jar_handling;
 
 import core.BigDiscordBot;
+import core.GuildHandler;
 import core.guild.modules.ModuleAPI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +15,6 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.*;
 import java.util.jar.JarEntry;
-import java.util.jar.JarFile;
 
 public class JarLoader {
 
@@ -51,7 +51,8 @@ public class JarLoader {
 
         Arrays.asList(directory.listFiles(filenameFilter)).forEach(file -> {
             try {
-                jarList.add(new JarFile(file));
+                JarFile jarFile = new JarFile(file);
+                if (!jarList.contains(jarFile)) jarList.add(new JarFile(file));
                 logger.info("Loaded {} to plugin jars",file.getName());
             } catch (IOException e) {
                 logger.error("{} is not a jar file",file.getName());
@@ -70,6 +71,7 @@ public class JarLoader {
         String className = "Test";
 
         for (JarFile jarFile: jarList) {
+            if (jarFile.isLoaded()) continue;
             Enumeration<JarEntry> entries = jarFile.entries();
             try {
                 logger.info("Loading jar file: {}", jarFile.getName());
@@ -97,6 +99,7 @@ public class JarLoader {
                 classNotFound.printStackTrace();
                 logger.warn("Class {} was not found in jar file {}", className, jarFile.getName());
             } finally {
+                jarFile.setLoaded(true);
                 jarFile.close();
             }
         }
@@ -107,6 +110,9 @@ public class JarLoader {
         try {
             cleanJars();
             loadJars();
+            BigDiscordBot.getInstance().clearModules();
+            loadAllClasses();
+            GuildHandler.reloadGuildHandler();
         }catch (Exception e){
             e.printStackTrace();
         }
