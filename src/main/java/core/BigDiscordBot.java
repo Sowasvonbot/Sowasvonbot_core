@@ -75,6 +75,7 @@ public class BigDiscordBot {
                         } catch (IOException e){
                             e.printStackTrace();
                         }
+                        break;
                     default:
                         System.out.println("Don't know: " + line);
                 }
