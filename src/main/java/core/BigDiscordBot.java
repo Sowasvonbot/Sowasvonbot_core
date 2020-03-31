@@ -73,13 +73,14 @@ public class BigDiscordBot {
                         });
                         break;
                     case "help":
-                        System.out.println("quit, stop, exit, reload, reloadJars, loadPlugins");
+                        System.out.println("quit, stop, exit, reload, loadPlugins");
                         break;
+                    //case "reload":
+                    //    logger.info("Reloading guild");
+                    //    mainBotExecutor.submit(()->GuildHandler.reloadGuildHandler());
+                    //    break;
                     case "reload":
-                        logger.info("Reloading guild");
-                        mainBotExecutor.submit(()->GuildHandler.reloadGuildHandler());
-                        break;
-                    case "reloadJars":
+                        logger.info("Reloading");
                         mainBotExecutor.submit(()-> JarLoader.getInstance().reload());
                         break;
                     case "loadPlugins":
