@@ -32,6 +32,7 @@ public class CommandListener extends ListenerAdapter {
         this.executorList = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
         this.executorList.putAll(executorList);
         configService = Executors.newSingleThreadExecutor();
+        configService.submit(() -> Thread.currentThread().setName("config service"));
         Bot.addListener(this);
 
     }

@@ -3,6 +3,8 @@ package core;
 import botcore.Bot;
 import core.guild.modules.ModuleAPI;
 import jar_handling.JarLoader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,6 +17,7 @@ public class BigDiscordBot {
 
     private static List<Class<? extends ModuleAPI>> registeredModules;
     private static ExecutorService mainBotExecutor;
+    private static final Logger logger = LoggerFactory.getLogger("BigBot");
 
 
     private static BigDiscordBot instance;
@@ -63,11 +66,17 @@ public class BigDiscordBot {
                     case "quit":
                     case "stop":
                     case "exit":
-                        Bot.shutdown();
-                        int exitCode = guildHandler.shutdown();
-                        System.exit(exitCode);
+                        mainBotExecutor.submit(() ->{
+                            Bot.shutdown();
+                            int exitCode = guildHandler.shutdown();
+                            System.exit(exitCode);
+                        });
+                        break;
+                    case "help":
+                        System.out.println("quit, stop, exit, reload, reloadJars, loadPlugins");
+                        break;
                     case "reload":
-                        System.out.println("Reloading guild");
+                        logger.info("Reloading guild");
                         mainBotExecutor.submit(()->GuildHandler.reloadGuildHandler());
                         break;
                     case "reloadJars":

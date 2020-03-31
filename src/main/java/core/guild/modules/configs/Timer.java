@@ -29,6 +29,7 @@ public class Timer {
         this.listener = listener;
         this.myController = myController;
 
+        timer.submit(() -> Thread.currentThread().setName("Timer"));
         logger.info("Timer start");
         timer.scheduleAtFixedRate(raiseCounter(), 0, 1, TimeUnit.MINUTES);
     }
@@ -56,6 +57,7 @@ public class Timer {
     protected void closeConfigSession(){
 
         Bot.removeListener(listener);
+        logger.info("Timer stop");
         listener = null;
         myController = null;
         timer.shutdownNow();
