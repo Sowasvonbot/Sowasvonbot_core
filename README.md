@@ -14,7 +14,7 @@ Now you only need to extend from ModuleApi and implement the interfaces CommandC
 These are my interfaces to new modules
 
 If you have done this, just register your modules and start the Bot in the main method with: \
-BigDiscordBot.registerModules(YourClassHere.class extends ModuleApi); \
+BigDiscordBot.registerModule(YourClassHere.class extends ModuleApi); \
 BigDiscordBot.getInstance().startBot();
 
 Otherwise start the Bot and a folder plugins will appear at project level. Copy your module as a jar in there.
