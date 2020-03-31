@@ -12,8 +12,6 @@ public class Main {
         //BigDiscordBot.getInstance().registerModule(twitch_api.ModuleAPI.class);
 
         //start bot
-        JarLoader.getInstance();
-        JarLoader.getInstance().loadJars();
         BigDiscordBot.getInstance().startBot();
 
 

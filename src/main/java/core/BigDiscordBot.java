@@ -38,6 +38,10 @@ public class BigDiscordBot {
 
     public void startBot(){
         mainBotExecutor.submit(()-> {
+            JarLoader.getInstance();
+            JarLoader.getInstance().loadJars();
+            JarLoader.getInstance().loadAllClasses();
+
             GuildHandler guildHandler = GuildHandler.getInstance();
             setupScanner(guildHandler);
         });
@@ -70,11 +74,7 @@ public class BigDiscordBot {
                         mainBotExecutor.submit(()-> JarLoader.getInstance().reload());
                         break;
                     case "loadPlugins":
-                        try {
                             JarLoader.getInstance().loadAllClasses();
-                        } catch (IOException e){
-                            e.printStackTrace();
-                        }
                         break;
                     default:
                         System.out.println("Don't know: " + line);

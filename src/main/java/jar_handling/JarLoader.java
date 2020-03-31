@@ -65,7 +65,7 @@ public class JarLoader {
     }
 
 
-    public void loadAllClasses() throws IOException{
+    public void loadAllClasses(){
         String jarPath = filepath+File.separator+"plugins";
         int classLength = String.valueOf(".class").length();
         String className = "Test";
@@ -100,7 +100,11 @@ public class JarLoader {
                 logger.warn("Class {} was not found in jar file {}", className, jarFile.getName());
             } finally {
                 jarFile.setLoaded(true);
-                jarFile.close();
+                try {
+                    jarFile.close();
+                } catch (IOException ex){
+                    logger.error(ex.getLocalizedMessage());
+                }
             }
         }
     }
