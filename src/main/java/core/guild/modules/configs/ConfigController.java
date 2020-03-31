@@ -45,7 +45,10 @@ public class ConfigController {
 
     protected void incomingMessage(String message){
         timer.reset();
-        if (message.toLowerCase().contains("stop config")) timer.closeConfigSession();
+        if (message.toLowerCase().contains("stop config")) {
+            timer.closeConfigSession();
+            return;
+        }
         switch (currStatus){
             case onModuleSelect:
                 if (executors.containsKey(message)){
