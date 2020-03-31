@@ -30,16 +30,16 @@ public class Executor {
         moduleName = name;
     }
 
-    public void executeCommand(String parameter, String[] args, long channelID) {
+    public void executeCommand(String command, String[] args, long channelID) {
         executorService.submit(() ->{
 
-            if(parameter.equalsIgnoreCase("commands")) {
+            if(command.equalsIgnoreCase("commands")) {
                 Output.sendMessageToChannel(channelID,getCommands());
                 return;
             }
-            logger.info("Executing command {} with parameters", parameter);
+            logger.info("Executing command {} with parameters", command);
             try{
-                CommandReturn commandReturn = commandController.executeCommand(parameter, args);
+                CommandReturn commandReturn = commandController.executeCommand(command, args);
                 Object o = commandReturn.getContent();
                 MessageHolder messageHolder = null;
                 messageHolder = commandReturn.getMessageHolder();
@@ -53,7 +53,7 @@ public class Executor {
                     Output.sendMessageToChannel(channelID, o.toString());
                 }
             } catch (Exception e){
-                e.printStackTrace();
+                logger.error("{} while executing {}",e.getMessage(), command);
             }
         });
     }

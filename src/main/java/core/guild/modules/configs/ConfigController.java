@@ -35,6 +35,8 @@ public class ConfigController {
             return;
         }
 
+        sendMessage("Config session started. Could be exited at any time with \"stop config\". " +
+                "\nOtherwise the session will close after 10 minutes of inactivity.");
         selectModule();
         timer = new Timer(user,new ConfigListener(userID, this), this);
 
@@ -43,6 +45,7 @@ public class ConfigController {
 
     protected void incomingMessage(String message){
         timer.reset();
+        if (message.toLowerCase().contains("stop config")) timer.closeConfigSession();
         switch (currStatus){
             case onModuleSelect:
                 if (executors.containsKey(message)){
