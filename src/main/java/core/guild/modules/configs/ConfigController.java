@@ -117,6 +117,7 @@ public class ConfigController {
         for (String name : executors.keySet()) {
             allModules = allModules.concat(name + ", ");
         }
+        if (allModules.equals("")) allModules = "No modules found";
         return allModules.substring(0,allModules.length()-2);
     }
 
