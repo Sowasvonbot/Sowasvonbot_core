@@ -35,10 +35,7 @@ public class Bot {
         try {
             readStatusList();
             FileLoader.getInstance().loadFileFromClasspath("data/token.txt");
-            myJDA = new JDABuilder()
-                    .setActivity(Activity.watching("faule Freunde"))
-                    .setStatus(OnlineStatus.ONLINE)
-                    .setToken(FileStringReader.getInstance().getFileContentAsString("token"))
+            myJDA = JDABuilder.createDefault(FileStringReader.getInstance().getFileContentAsString("token"))
                     .build().awaitReady();
             startStatusCycling();
         } catch (LoginException e) {

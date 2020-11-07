@@ -33,7 +33,7 @@ run {
 compileJava.options.encoding = 'UTF-8'
 
 dependencies {
-    compile ('net.dv8tion:JDA:4.1.1_105') {
+    compile ('net.dv8tion:JDA:4.2.0_214') {
         exclude module: 'opus-java'
     }
     compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.13.0'
