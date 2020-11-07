@@ -1,13 +1,13 @@
 # Sowasvonbot
 
-This is the core of my own Discord Bot.
+This is the main.core of my own Discord Bot.
 
 The idea of this project is a module based Bot, so I'm able to develop modules and functionality for this Bot in other projects.
 
 If you want to develop your own module and use this bot, so you don't need to write things like config procedures or multi-server support, then just clone this repo or import the project from Maven Central:
 
 namespace: com.github.sowasvonbot \
-project: sowasvonbot-core \
+project: sowasvonbot-main.core \
 version: 0.0.2
 
 Now you only need to extend from ModuleApi and implement the interfaces CommandController and MiscModuleData \
