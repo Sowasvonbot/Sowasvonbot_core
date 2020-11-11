@@ -62,13 +62,13 @@ public class CommandListener extends ListenerAdapter {
         String messageContent = message.getContentRaw();
 
         logger.debug("Incoming message {}", messageContent);
-
-
         String[] parameters = messageContent.split(" ");
-        if (parameters.length == 0) return;
+
+
 
         if (message.getMentionedUsers().contains(Bot.getBotUser())){
             if (message.getContentRaw().toLowerCase().contains("config")){
+                logger.debug("Open config session");
                 //TODO instance of new ConfigController(Executor, UserID, Guild
                 configService.submit(() -> new ConfigController(author.getIdLong(),guild.getIdLong(), executorList));
             }

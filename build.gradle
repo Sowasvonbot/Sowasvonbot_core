@@ -8,13 +8,13 @@ plugins {
 
 
 group 'com.github.sowasvonbot'
-version "0.0.4"
+version "0.0.5"
 
 archivesBaseName = "sowasvonbot-core"
 
 sourceCompatibility = 1.8
 
-mainClassName = 'Main'
+mainClassName = 'main.Main'
 
 signing {
     sign configurations.archives
@@ -45,7 +45,7 @@ dependencies {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'Main'
+        attributes 'Main-Class': 'main.Main'
     }
 }
 

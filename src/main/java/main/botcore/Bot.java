@@ -123,7 +123,7 @@ public class Bot {
     }
 
     public static User getUser(long id){
-        return getInstance().getMyJDA().getUserById(id);
+        return getInstance().getMyJDA().retrieveUserById(id).complete();
     }
 
     public static net.dv8tion.jda.api.entities.Guild getGuild(long id){

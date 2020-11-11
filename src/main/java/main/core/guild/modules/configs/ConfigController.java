@@ -7,6 +7,8 @@ import main.core.guild.modules.commands.Executor;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
@@ -23,15 +25,18 @@ public class ConfigController {
     private Status currStatus;
     private CommandController commandController;
 
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     public ConfigController(long userID, long guildID, Map<String,Executor> executors) {
         this.UserID = userID;
         this.guildID = guildID;
         this.executors = executors;
         user = Bot.getUser(userID);
-        if (this.hasAdminPermission(userID,guildID)) sendMessage("Du bist Admin auf dem Server "+ Bot.getGuild(guildID).getName());
+
+        logger.info("New config session with userID: {}, guildID:{}",userID,guildID);
+        if (this.hasAdminPermission(userID,guildID)) sendMessage(" You are admin at the server: "+ Bot.getGuild(guildID).getName());
         else {
-            sendMessage("Du bist kein Admin auf dem Server " + Bot.getGuild(guildID).getName());
+            sendMessage("You are no admin at the server " + Bot.getGuild(guildID).getName());
             return;
         }
 
@@ -101,13 +106,17 @@ public class ConfigController {
     }
 
     private Boolean hasAdminPermission(long clientID, long guildID){
-        Member member = Bot.getGuild(guildID).getMemberById(clientID);
+        Member member = Bot.getGuild(guildID).retrieveMemberById(clientID).complete();
         return member.hasPermission(Permission.ADMINISTRATOR);
     }
 
     protected void sendMessage(String content){
-        user.openPrivateChannel().queue((channel) -> channel.sendMessage(content).queue());
-
+        //user.openPrivateChannel().queue((channel) -> channel.sendMessage(content).queue());
+        try {
+            user.openPrivateChannel().complete().sendMessage(content).complete();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 
@@ -117,7 +126,7 @@ public class ConfigController {
         for (String name : executors.keySet()) {
             allModules = allModules.concat(name + ", ");
         }
-        if (allModules.equals("")) allModules = "No modules found";
+        if (allModules.equals("")) return "No modules found";
         return allModules.substring(0,allModules.length()-2);
     }
 
