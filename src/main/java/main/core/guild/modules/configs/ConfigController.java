@@ -95,7 +95,8 @@ public class ConfigController {
 
     private String argsToString(String[] args){
         StringBuilder res = new StringBuilder();
-        for (int i = 1; i < args.length; i++) res.append(args[i]);
+        for (int i = 1; i < args.length; i++) res.append(args[i]).append(" ");
+        res.deleteCharAt(res.length()-1);
         return res.toString();
     }
 
