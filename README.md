@@ -8,7 +8,7 @@ If you want to develop your own module and use this bot, so you don't need to wr
 
 namespace: com.github.sowasvonbot \
 project: sowasvonbot-main.core \
-version: 0.0.2
+version: 0.0.4
 
 Now you only need to extend from ModuleApi and implement the interfaces CommandController and MiscModuleData \
 These are my interfaces to new modules
