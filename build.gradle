@@ -8,7 +8,7 @@ plugins {
 
 
 group 'com.github.sowasvonbot'
-version "0.0.5"
+version "0.0.6"
 
 archivesBaseName = "sowasvonbot-core"
 
@@ -22,6 +22,10 @@ signing {
 
 repositories {
     mavenCentral()
+    maven {
+        name 'm2-dv8tion'
+        url 'https://m2.dv8tion.net/releases'
+    }
     jcenter()
 }
 
@@ -33,7 +37,7 @@ run {
 compileJava.options.encoding = 'UTF-8'
 
 dependencies {
-    compile ('net.dv8tion:JDA:4.2.0_214') {
+    compile ('net.dv8tion:JDA:4.2.1_253') {
         exclude module: 'opus-java'
     }
     compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.13.0'
